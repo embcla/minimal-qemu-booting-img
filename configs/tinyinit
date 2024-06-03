@@ -1,0 +1,8 @@
+#!/bin/sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t tmpfs none /tmp
+echo "---> Welcome to TinyClaudioQEMU"
+echo -e "\n---> This boot took $(cut -d' ' -f1 /proc/uptime) seconds\n"
+echo "---> Hello world"
+exec /bin/sh +m
