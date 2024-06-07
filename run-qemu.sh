@@ -150,6 +150,10 @@ setup_bootimg()
     fi
     sudo cp -r ${DIR_HOME}/configs/tinyinit rootfs/init
     sudo cp -r ${DIR_BUSYBOX}/_install/* rootfs
+    if [ ! $? -eq 0 ]; then
+        echo "There was an error adding busybox to the root image, please fix it an try again"
+        exit 1;
+    fi
     cd rootfs
     sudo mkdir -p proc sys tmp dev
     sudo mknod dev/ram b 1 0
@@ -252,10 +256,12 @@ get_user_notice_acceptance()
     * run the above in a custom QEMU image\n\n \
          
     DISCLAIMER: the build systems of the Kernel and of\n \
-    Busybox do not automatically check of pre-requisites.\n \
+    Busybox do not automatically check for pre-requisites.\n \
     You, the user, are required to manually sort out necessary\n \
-    dependencies for everything. Please check the dependencies\n \
-    of Kernel, Busybox, QEMU and act accordingly.\n\n \
+    dependencies. Please check the dependencies of Kernel, \n \
+    Busybox, QEMU and act accordingly.\n \
+    This software has been tested on Ubuntu 23.04 and 24.04,\n \
+    results may vary on other distributions.\n\n \
 
     Do you wish to proceed? (y/n)"
         read choice
